@@ -1,0 +1,1 @@
+chunky_plot <- ggplot(head(starwars),aes(x=homeworld,y=mass)) + geom_col()

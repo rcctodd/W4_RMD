@@ -1,0 +1,44 @@
+---
+title: "class_4_rmd"
+author: "Richard Todd"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: bookdown::html_document2
+bibliography: sage_dioa18_44.bib
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  collapse=TRUE, 
+  warning=FALSE)
+```
+
+```{r load packages}
+library(tidyverse)
+library(tufte)
+
+devtools::install_github("crsh/papaja")
+install.packages("tufte")
+remotes::install_github("rstudio/rticles")
+
+
+```
+
+```{r, starwars-plot, echo=FALSE, fig.cap = "Star Wars character mass vs height"}
+ggplot(starwars,aes(x=height,y=mass)) + geom_point()
+
+```
+I encourage all readers to look at Figure \@ref(fig:starwars-plot)!
+
+```{r, starwarstable, echo=FALSE, fig.cap = "Star Wars mass and unique species by planet"}
+
+knitr::kable(head(starwars %>%
+  group_by(homeworld) %>%
+  summarise(total_mass = sum(mass),no_species = n_distinct(species)),10),
+  caption = "a bad table")
+
+```
+That was fun.
+
+Now look at Table \@ref(tab:starwarstable)! For more examples see @Makarius1970 or @Bintliff1993.

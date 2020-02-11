@@ -1,0 +1,62 @@
+---
+title: "Class Four Markdown exploration"
+author: "Richard Todd"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  tufte::tufte_html: default
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: sage_dioa18_44.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tufte)
+library(tidyverse)
+
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(
+  tidy = FALSE, cache.extra = packageVersion('tufte'),
+  echo = FALSE,
+  collapse=TRUE, 
+  warning=FALSE)
+options(htmltools.dir.version = FALSE)
+```
+
+# Summary
+
+It's nice to explore the different layout options. Captions are placed inthe margin.
+
+```{r starwars-plot, fig.margin = FALSE, fig.cap = "Fig. 1: Star Wars character mass vs height", fig.width=3.5, fig.height=3.5, cache=TRUE, message=FALSE}
+ggplot(starwars,aes(x=height,y=mass)) + geom_point()
+
+```
+
+The layout of this template is a little mysterious. With more time and effort, we might decipher it fully. Instead, we will discharge only our class responsibilities. The chart above helps us to do this.
+
+
+# Tables
+
+This is a wonderful example of Tufte table.
+
+```{r starwarstable, cache = TRUE, fig.cap = "Tab. 1: Star Wars mass and unique species by planet"}
+
+knitr::kable(head(starwars %>%
+  group_by(homeworld) %>%
+  summarise(total_mass = sum(mass),no_species = n_distinct(species)),10),
+  caption = "Mass by Starwars species")
+
+```
+
+That was fun.
+
+Now look at the table above, referred to in the margins. For more examples see @Makarius1970 or @Bintliff1993.
+
+
+```{r reading-chunks}
+knitr::read_chunk("w4_chunk_to_read.r")
+```
